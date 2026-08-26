@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Nourish & Thrive</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(180deg,#f3faf5 0%,#f9fcf9 55%,#eef7f1 100%);color:#183b2b;line-height:1.45}
+header{background:linear-gradient(135deg,#155f3b,#1f7a4d 55%,#2b8c5b);color:#fff;padding:30px 20px 26px;border-radius:0 0 28px 28px;box-shadow:0 8px 24px #155f3b22}
+header h1{margin:0 0 8px;font-size:30px}
+header p{margin:0;opacity:.9}
+nav{display:flex;gap:8px;overflow-x:auto;padding:12px 14px;background:#ffffffee;backdrop-filter:blur(10px);position:sticky;top:0;z-index:10;border-bottom:1px solid #e6efe9}
+nav button{border:0;background:#e8f4ec;color:#1f6b45;padding:12px 15px;border-radius:22px;white-space:nowrap;font-weight:bold;cursor:pointer;box-shadow:0 1px 4px #00000008}
+nav button.active{background:#1f7a4d;color:#fff}
+main{padding:18px;max-width:760px;margin:auto}
+section{display:none}
+section.active{display:block}
+.hero{background:linear-gradient(135deg,#e2f3e8,#f0f9f3);padding:24px;border-radius:22px;margin-bottom:20px;box-shadow:0 6px 18px #1f7a4d12;border:1px solid #dcefe3}
+.hero h2{margin-top:0}
+.cta{display:inline-block;text-decoration:none;background:linear-gradient(135deg,#1f7a4d,#17643e);color:#fff;border:0;padding:13px 19px;border-radius:13px;font-weight:bold;cursor:pointer;box-shadow:0 5px 12px #1f7a4d22}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card{background:#fff;padding:17px;border-radius:18px;box-shadow:0 4px 16px #0000000b;border:1px solid #edf3ef}
+.card h3{margin:6px 0}
+.card.clickable{cursor:pointer}
+.card.clickable:active,nav button:active,.cta:active{transform:scale(.98)}
+.price{font-weight:bold;color:#1f7a4d}
+.recipe{margin:10px 0;padding:15px;background:#fff;border-radius:16px;box-shadow:0 3px 12px #00000008;border:1px solid #edf3ef}
+.plan-grid{display:grid;gap:12px}
+.plan-card{padding:16px}
+.plan-card p{line-height:1.55}
+footer{text-align:center;padding:34px 20px;color:#65806f}
+@media(max-width:520px){.grid{grid-template-columns:1fr 1fr}header h1{font-size:27px}}
+
+.guides-intro{background:#e2f3e8;padding:16px;border-radius:16px;margin-bottom:16px}
+.guide-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.guide-card{background:#fff;border-radius:18px;padding:18px;text-align:center;
+box-shadow:0 3px 14px #00000012;border:1px solid #edf4ef;cursor:pointer;
+transition:transform .15s ease,box-shadow .15s ease}
+.guide-card:active{transform:scale(.97);box-shadow:0 2px 8px #00000012}
+.guide-icon{width:62px;height:62px;margin:0 auto 10px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;background:#e8f4ec;font-size:30px}
+.guide-card h3{margin:8px 0;color:#183b2b;font-size:18px}
+.guide-card p{margin:0;color:#65806f;line-height:1.45;font-size:14px}
+.guide-badge{display:inline-block;margin-top:12px;padding:6px 10px;border-radius:20px;
+background:#e8f4ec;color:#1f7a4d;font-size:12px;font-weight:bold}
+@media(max-width:430px){.guide-grid{grid-template-columns:1fr 1fr}.guide-card{padding:14px}.guide-card h3{font-size:16px}}
+
+
+.day7-grid{display:grid;gap:12px}
+.day7-card{background:#fff;padding:16px;border-radius:16px;box-shadow:0 2px 10px #0000000d}
+.day7-card h3{margin:0 0 10px;color:#1f7a4d}
+.day7-card p{margin:7px 0;line-height:1.5}
+.day7-label{font-weight:bold;color:#183b2b}
+
+
+.grocery-list{display:grid;gap:12px}
+.grocery-card{background:#fff;padding:16px;border-radius:16px;box-shadow:0 2px 10px #0000000d}
+.grocery-card h3{margin:0 0 10px;color:#1f7a4d}
+.grocery-card ul{margin:8px 0 0;padding-left:20px;line-height:1.6}
+
+
+.budget-box{background:#fff;padding:18px;border-radius:16px;box-shadow:0 2px 10px #0000000d}
+.budget-box label{display:block;font-weight:bold;margin:12px 0 6px}
+.budget-box input{width:100%;padding:13px;border:1px solid #d9e8de;border-radius:10px;font-size:16px}
+.budget-result{margin-top:16px;padding:16px;background:#e2f3e8;border-radius:14px;font-weight:bold;line-height:1.6}
+
+
+.recipe-grid{display:grid;gap:12px}
+.recipe-card{background:#fff;padding:16px;border-radius:16px;box-shadow:0 2px 10px #0000000d}
+.recipe-card h3{margin:0 0 8px;color:#1f7a4d}
+.recipe-card p{margin:7px 0;line-height:1.5}
+.recipe-card ul{margin:8px 0;padding-left:20px;line-height:1.55}
+.recipe-tag{display:inline-block;margin-bottom:8px;padding:5px 9px;border-radius:16px;background:#e8f4ec;color:#1f7a4d;font-size:12px;font-weight:bold}
+
+
+.habit-list{display:grid;gap:12px}
+.habit-card{background:#fff;padding:16px;border-radius:16px;box-shadow:0 2px 10px #0000000d}
+.habit-card label{display:flex;align-items:flex-start;gap:12px;cursor:pointer;line-height:1.5}
+.habit-card input{width:20px;height:20px;flex:0 0 auto;margin-top:2px;accent-color:#1f7a4d}
+.habit-progress{margin:16px 0;padding:16px;background:#e2f3e8;border-radius:14px;font-weight:bold}
+
+
+.nutrition-grid{display:grid;gap:12px}
+.nutrition-card{background:#fff;padding:16px;border-radius:16px;box-shadow:0 2px 10px #0000000d}
+.nutrition-card h3{margin:0 0 8px;color:#1f7a4d}
+.nutrition-card p{margin:7px 0;line-height:1.55}
+
+</style>
+</head>
+<body>
+
+<header>
+<h1>Nourish & Thrive</h1>
+<p>Healthy eating made simple, affordable and practical.</p>
+</header>
+
+<nav aria-label="Main navigation">
+<button type="button" data-section="home">Home</button>
+<button type="button" data-section="meals">Meal Ideas</button>
+<button type="button" data-section="plan">30-Day Plan</button>
+<button type="button" data-section="shop">Shop</button>
+</nav>
+
+<main>
+<section id="home" class="active">
+<div class="hero">
+<div style="font-size:42px;margin-bottom:6px">🥗</div>
+<h2>Eat well without overspending</h2>
+<p>Discover simple meals, budget tips and practical resources for healthier everyday eating.</p>
+<button type="button" class="cta" data-section="meals">Explore Meals</button>
+</div>
+
+<h2>Quick Start</h2>
+<p style="color:#65806f;margin-top:-8px">Choose where you want to begin.</p>
+<div class="grid">
+<div class="card clickable" data-section="meals"><h3>🥣 Breakfast</h3><p>Simple affordable ideas.</p></div>
+<div class="card clickable" data-section="meals"><h3>🍲 Lunch</h3><p>Filling budget-friendly meals.</p></div>
+<div class="card clickable" data-section="meals"><h3>🍛 Dinner</h3><p>Healthy meals for less.</p></div>
+<div class="card clickable" data-section="shop"><h3>🛒 Grocery Tips</h3><p>Shop smarter and reduce waste.</p></div>
+</div>
+</section>
+
+<section id="meals">
+<h2>Budget Meal Ideas</h2>
+<div class="recipe"><b>Oats & Banana Bowl</b><p>Oats + banana + milk/yoghurt + a little peanut butter.</p></div>
+<div class="recipe"><b>Bean & Rice Bowl</b><p>Rice + beans + seasonal vegetables + simple spices.</p></div>
+<div class="recipe"><b>Egg & Vegetable Toast</b><p>Eggs + whole-grain bread + tomatoes or other vegetables.</p></div>
+<div class="recipe"><b>Fruit & Yoghurt Snack</b><p>Plain yoghurt + seasonal fruit + a small handful of nuts.</p></div>
+<button type="button" class="cta" data-section="home">← Back Home</button>
+</section>
+
+<section id="plan">
+<h2>30-Day Meal Plan</h2>
+<p>Use the meal calendar as a flexible guide. Swap foods according to local availability, culture and budget.</p>
+<div class="plan-grid">
+<div class="card plan-card"><b>Day 1</b><p>Breakfast: Oats + fruit<br>Lunch: Egg + toast<br>Dinner: Bean + rice bowl<br>Snack: Lentil stew</p></div>
+<div class="card plan-card"><b>Day 2</b><p>Breakfast: Yogurt + fruit<br>Lunch: Chickpea wrap<br>Dinner: Chicken + vegetables<br>Snack: Simple fruit</p></div>
+<div class="card plan-card"><b>Day 3</b><p>Breakfast: Overnight oats<br>Lunch: Leftover bowl<br>Dinner: Vegetable pasta<br>Snack: Yogurt</p></div>
+<div class="card plan-card"><b>Day 4</b><p>Breakfast: Egg + vegetables<br>Lunch: Lentil bowl<br>Dinner: Potato + beans<br>Snack: Fruit</p></div>
+<div class="card plan-card"><b>Day 5</b><p>Breakfast: Oats + banana<br>Lunch: Tuna wrap<br>Dinner: Vegetable soup<br>Snack: Popcorn</p></div>
+<div class="card plan-card"><b>Day 6</b><p>Breakfast: Toast + nut butter<br>Lunch: Leftover bowl<br>Dinner: One-pot beans<br>Snack: Fruit</p></div>
+<div class="card plan-card"><b>Day 7</b><p>Breakfast: Porridge + fruit<br>Lunch: Chickpea salad<br>Dinner: Chicken + rice<br>Snack: Yogurt</p></div>
+<div class="card plan-card"><b>Day 8</b><p>Breakfast: Oats + fruit<br>Lunch: Bean bowl<br>Dinner: Lentil stew<br>Snack: Fruit</p></div>
+<div class="card plan-card"><b>Day 9</b><p>Breakfast: Egg + toast<br>Lunch: Leftovers<br>Dinner: Vegetable pasta<br>Snack: Yogurt</p></div>
+<div class="card plan-card"><b>Day 10</b><p>Breakfast: Yogurt + oats<br>Lunch: Chickpea wrap<br>Dinner: Potato + beans<br>Snack: Fruit</p></div>
+<div class="card plan-card"><b>Day 11</b><p>Breakfast: Overnight oats<br>Lunch: Tuna wrap<br>Dinner: Chicken + vegetables<br>Snack: Popcorn</p></div>
+<div class="card plan-card"><b>Day 12</b><p>Breakfast: Egg + vegetables<br>Lunch: Leftover bowl<br>Dinner: One-pot beans<br>Snack: Fruit</p></div>
+<div class="card plan-card"><b>Day 13</b><p>Breakfast: Porridge + fruit<br>Lunch: Lentil bowl<br>Dinner: Vegetable soup<br>Snack: Yogurt</p></div>
+<div class="card plan-card"><b>Day 14</b><p>Breakfast: Oats + banana<br>Lunch: Leftovers<br>Dinner: Rice + beans<br>Snack: Fruit</p></div>
+<div class="card plan-card"><b>Day 15</b><p>Breakfast: Yogurt + fruit<br>Lunch: Lentil bowl<br>Dinner: Chicken + vegetables<br>Snack: Fruit</p></div>
+<div class="card plan-card"><b>Day 16</b><p>Breakfast: Oats + banana<br>Lunch: Tuna wrap<br>Dinner: Vegetable pasta<br>Snack: Yogurt</p></div>
+<div class="card plan-card"><b>Day 17</b><p>Breakfast: Egg + toast<br>Lunch: Chickpea salad<br>Dinner: Fish + grain + veg<br>Snack: Popcorn</p></div>
+<div class="card plan-card"><b>Day 18</b><p>Breakfast: Overnight oats<br>Lunch: Leftover bowl<br>Dinner: Lentil stew<br>Snack: Fruit</p></div>
+<div class="card plan-card"><b>Day 19</b><p>Breakfast: Porridge + fruit<br>Lunch: Bean bowl<br>Dinner: Vegetable soup<br>Snack: Yogurt</p></div>
+<div class="card plan-card"><b>Day 20</b><p>Breakfast: Toast + egg<br>Lunch: Chickpea wrap<br>Dinner: Potato + beans<br>Snack: Fruit</p></div>
+<div class="card plan-card"><b>Day 21</b><p>Breakfast: Oats + fruit<br>Lunch: Leftovers<br>Dinner: One-pot beans<br>Snack: Yogurt</p></div>
+<div class="card plan-card"><b>Day 22</b><p>Breakfast: Oats + fruit<br>Lunch: Bean bowl<br>Dinner: Your favorite meal<br>Snack: Fruit</p></div>
+<div class="card plan-card"><b>Day 23</b><p>Breakfast: Egg + vegetables<br>Lunch: Leftovers<br>Dinner: Your favorite meal<br>Snack: Yogurt</p></div>
+<div class="card plan-card"><b>Day 24</b><p>Breakfast: Yogurt + oats<br>Lunch: Chickpea wrap<br>Dinner: Your favorite meal<br>Snack: Popcorn</p></div>
+<div class="card plan-card"><b>Day 25</b><p>Breakfast: Overnight oats<br>Lunch: Lentil bowl<br>Dinner: Your favorite meal<br>Snack: Fruit</p></div>
+<div class="card plan-card"><b>Day 26</b><p>Breakfast: Porridge + fruit<br>Lunch: Tuna wrap<br>Dinner: Your favorite meal<br>Snack: Yogurt</p></div>
+<div class="card plan-card"><b>Day 27</b><p>Breakfast: Toast + egg<br>Lunch: Leftovers<br>Dinner: Your favorite meal<br>Snack: Fruit</p></div>
+<div class="card plan-card"><b>Day 28</b><p>Breakfast: Oats + banana<br>Lunch: Chickpea salad<br>Dinner: Your favorite meal<br>Snack: Yogurt</p></div>
+<div class="card plan-card"><b>Day 29</b><p>Keep your best low-cost meals and build your personal rotation.</p></div>
+<div class="card plan-card"><b>Day 30</b><p>Choose the habits and meals that worked best, then continue your personal rotation.</p></div>
+</div>
+</section>
+
+<section id="shop">
+<h2>Digital Products</h2>
+<div class="card">
+<h3>Healthy Eating on a Budget</h3>
+<p>A practical guide with meal ideas, recipes, budgeting tips and planning resources.</p>
+<p class="price">Price: See current store price</p>
+<a class="cta" href="https://beacons.ai/m2steven?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAT7qT9wZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp3uDJROdEVklEu_cHooDe5elXAlCxyGW5pCnd6j4Jy6wtLS-k9-55mIxP5t_aem_AfrWvdc4Gieqm-rP4D6oZQ" target="_blank" rel="noopener noreferrer">Buy Now</a>
+</div>
+<br>
+<div class="card clickable" data-section="guides" role="button" tabindex="0">
+<h3>More Nourish & Thrive Guides</h3>
+<p>Tap here to explore upcoming Nourish & Thrive products.</p>
+<button type="button" class="cta" data-section="guides">Explore Guides</button>
+</div>
+</section>
+
+<section id="guides">
+<h2>More Nourish & Thrive Guides</h2>
+<div class="guides-intro">
+<strong>Build your healthy lifestyle step by step.</strong>
+<p style="margin-bottom:0">Explore our practical guides and planning tools. Product links can be connected when they are ready.</p>
+</div>
+<div class="guide-grid">
+<div class="guide-card" data-product="7-Day Healthy Meal Plan" tabindex="0" role="button">
+<div class="guide-icon">📅</div><h3>7-Day Meal Plan</h3><p>Easy meal planning for busy weeks.</p><span class="guide-badge">Coming soon</span>
+</div>
+<div class="guide-card" data-product="Budget Grocery Planner" tabindex="0" role="button">
+<div class="guide-icon">🛒</div><h3>Grocery Planner</h3><p>Plan groceries and save more money.</p><span class="guide-badge">Coming soon</span>
+</div>
+<div class="guide-card" data-product="Grocery Budget Calculator" tabindex="0" role="button">
+<div class="guide-icon">🧮</div><h3>Budget Calculator</h3><p>Calculate and manage your food budget.</p><span class="guide-badge">Coming soon</span>
+</div>
+<div class="guide-card" data-product="Healthy Recipes Guide" tabindex="0" role="button">
+<div class="guide-icon">🥗</div><h3>Healthy Recipes</h3><p>Simple and affordable recipe ideas.</p><span class="guide-badge">Coming soon</span>
+</div>
+<div class="guide-card" data-product="Healthy Habits Workbook" tabindex="0" role="button">
+<div class="guide-icon">💧</div><h3>Healthy Habits</h3><p>Build practical habits for everyday life.</p><span class="guide-badge">Coming soon</span>
+</div>
+<div class="guide-card" data-product="Nutrition Basics Guide" tabindex="0" role="button">
+<div class="guide-icon">📖</div><h3>Nutrition Basics</h3><p>Understand nutrition in a simple way.</p><span class="guide-badge">Coming soon</span>
+</div>
+</div>
+<br>
+<button type="button" class="cta" data-section="shop">← Back to Shop</button>
+</section>
+
+
+<section id="meal7">
+  <h2>7-Day Healthy Meal Plan</h2>
+  <div class="guides-intro">
+    <strong>Simple, affordable and practical.</strong>
+    <p style="margin-bottom:0">Use this flexible 7-day guide and swap foods according to your local availability, culture and budget.</p>
+  </div>
+
+  <div class="day7-grid">
+    <div class="day7-card">
+      <h3>Day 1</h3>
+      <p><span class="day7-label">Breakfast:</span> Oats + banana + milk or yoghurt</p>
+      <p><span class="day7-label">Lunch:</span> Beans + rice + seasonal vegetables</p>
+      <p><span class="day7-label">Dinner:</span> Egg + vegetables + whole-grain bread</p>
+      <p><span class="day7-label">Snack:</span> Seasonal fruit</p>
+    </div>
+
+    <div class="day7-card">
+      <h3>Day 2</h3>
+      <p><span class="day7-label">Breakfast:</span> Yoghurt + oats + fruit</p>
+      <p><span class="day7-label">Lunch:</span> Chickpea or bean wrap + vegetables</p>
+      <p><span class="day7-label">Dinner:</span> Chicken + vegetables + rice or another grain</p>
+      <p><span class="day7-label">Snack:</span> Fruit</p>
+    </div>
+
+    <div class="day7-card">
+      <h3>Day 3</h3>
+      <p><span class="day7-label">Breakfast:</span> Overnight oats + fruit</p>
+      <p><span class="day7-label">Lunch:</span> Leftover bean and rice bowl + vegetables</p>
+      <p><span class="day7-label">Dinner:</span> Vegetable pasta + beans or lentils</p>
+      <p><span class="day7-label">Snack:</span> Plain yoghurt</p>
+    </div>
+
+    <div class="day7-card">
+      <h3>Day 4</h3>
+      <p><span class="day7-label">Breakfast:</span> Eggs + vegetables + toast</p>
+      <p><span class="day7-label">Lunch:</span> Lentil bowl + seasonal vegetables</p>
+      <p><span class="day7-label">Dinner:</span> Potatoes + beans + vegetables</p>
+      <p><span class="day7-label">Snack:</span> Seasonal fruit</p>
+    </div>
+
+    <div class="day7-card">
+      <h3>Day 5</h3>
+      <p><span class="day7-label">Breakfast:</span> Oats + banana + a little peanut butter</p>
+      <p><span class="day7-label">Lunch:</span> Tuna or bean wrap + vegetables</p>
+      <p><span class="day7-label">Dinner:</span> Vegetable soup + beans or lentils</p>
+      <p><span class="day7-label">Snack:</span> Plain popcorn</p>
+    </div>
+
+    <div class="day7-card">
+      <h3>Day 6</h3>
+      <p><span class="day7-label">Breakfast:</span> Toast + nut butter + fruit</p>
+      <p><span class="day7-label">Lunch:</span> Leftover bowl with vegetables</p>
+      <p><span class="day7-label">Dinner:</span> One-pot beans + rice + vegetables</p>
+      <p><span class="day7-label">Snack:</span> Seasonal fruit</p>
+    </div>
+
+    <div class="day7-card">
+      <h3>Day 7</h3>
+      <p><span class="day7-label">Breakfast:</span> Porridge + fruit</p>
+      <p><span class="day7-label">Lunch:</span> Chickpea or bean salad + bread</p>
+      <p><span class="day7-label">Dinner:</span> Chicken or fish + rice/grain + vegetables</p>
+      <p><span class="day7-label">Snack:</span> Yoghurt or fruit</p>
+    </div>
+  </div>
+
+  <br>
+  <button type="button" class="cta" data-section="guides">← Back to Guides</button>
+</section>
+
+
+<section id="grocery">
+  <h2>Grocery Planner</h2>
+  <div class="guides-intro">
+    <strong>Plan your groceries and save more.</strong>
+    <p style="margin-bottom:0">Use this simple starter list and adjust quantities to suit your household, local prices and budget.</p>
+  </div>
+
+  <div class="grocery-list">
+    <div class="grocery-card">
+      <h3>🥦 Vegetables</h3>
+      <ul>
+        <li>Seasonal leafy greens</li>
+        <li>Tomatoes</li>
+        <li>Carrots</li>
+        <li>Onions</li>
+        <li>Potatoes or another affordable staple</li>
+      </ul>
+    </div>
+
+    <div class="grocery-card">
+      <h3>🍌 Fruits</h3>
+      <ul>
+        <li>Bananas</li>
+        <li>Apples or another seasonal fruit</li>
+        <li>Choose fruits that are affordable locally</li>
+      </ul>
+    </div>
+
+    <div class="grocery-card">
+      <h3>🌾 Grains & Staples</h3>
+      <ul>
+        <li>Oats</li>
+        <li>Rice</li>
+        <li>Whole-grain bread or another local staple</li>
+        <li>Pasta</li>
+      </ul>
+    </div>
+
+    <div class="grocery-card">
+      <h3>🫘 Protein Foods</h3>
+      <ul>
+        <li>Beans</li>
+        <li>Lentils</li>
+        <li>Eggs</li>
+        <li>Chickpeas</li>
+        <li>Chicken, fish or another affordable protein</li>
+      </ul>
+    </div>
+
+    <div class="grocery-card">
+      <h3>🥛 Other Basics</h3>
+      <ul>
+        <li>Milk or yoghurt</li>
+        <li>Peanut butter or another nut/seed spread</li>
+        <li>Simple herbs and spices</li>
+      </ul>
+    </div>
+  </div>
+
+  <br>
+  <button type="button" class="cta" data-section="guides">← Back to Guides</button>
+</section>
+
+
+<section id="budget">
+  <h2>Grocery Budget Calculator</h2>
+  <div class="guides-intro">
+    <strong>Plan your food budget with confidence.</strong>
+    <p style="margin-bottom:0">Enter your budget and household details to estimate a simple weekly and daily food allowance.</p>
+  </div>
+
+  <div class="budget-box">
+    <label for="budgetAmount">Monthly food budget</label>
+    <input id="budgetAmount" type="number" min="0" step="0.01" placeholder="e.g. 200">
+
+    <label for="peopleCount">Number of people</label>
+    <input id="peopleCount" type="number" min="1" step="1" value="1">
+
+    <button type="button" class="cta" id="calculateBudget" style="margin-top:16px">Calculate Budget</button>
+
+    <div id="budgetResult" class="budget-result" aria-live="polite">
+      Enter your details and tap Calculate Budget.
+    </div>
+  </div>
+
+  <br>
+  <button type="button" class="cta" data-section="guides">← Back to Guides</button>
+</section>
+
+
+<section id="recipes">
+  <h2>Healthy & Affordable Recipes</h2>
+  <div class="guides-intro">
+    <strong>Simple recipes for everyday life.</strong>
+    <p style="margin-bottom:0">Choose affordable ingredients, use seasonal foods when possible, and adjust portions to suit your household.</p>
+  </div>
+
+  <div class="recipe-grid">
+    <div class="recipe-card">
+      <span class="recipe-tag">Breakfast</span>
+      <h3>🥣 Oats & Banana Bowl</h3>
+      <p><b>Ingredients:</b> Oats, banana, milk or yoghurt, a little peanut butter.</p>
+      <p><b>Method:</b> Cook or soak the oats, add sliced banana and yoghurt or milk, then top with a small amount of peanut butter.</p>
+    </div>
+
+    <div class="recipe-card">
+      <span class="recipe-tag">Lunch</span>
+      <h3>🍚 Bean & Rice Bowl</h3>
+      <p><b>Ingredients:</b> Rice, cooked beans, seasonal vegetables and simple spices.</p>
+      <p><b>Method:</b> Cook the rice and beans, add cooked or fresh vegetables, and season to taste.</p>
+    </div>
+
+    <div class="recipe-card">
+      <span class="recipe-tag">Breakfast / Lunch</span>
+      <h3>🍳 Egg & Vegetable Toast</h3>
+      <p><b>Ingredients:</b> Eggs, whole-grain bread, tomatoes or other vegetables.</p>
+      <p><b>Method:</b> Cook the eggs with vegetables and serve with toasted bread.</p>
+    </div>
+
+    <div class="recipe-card">
+      <span class="recipe-tag">Snack</span>
+      <h3>🍓 Fruit & Yoghurt Snack</h3>
+      <p><b>Ingredients:</b> Plain yoghurt, seasonal fruit and a small handful of nuts or seeds.</p>
+      <p><b>Method:</b> Combine yoghurt and chopped fruit, then add nuts or seeds if available.</p>
+    </div>
+
+    <div class="recipe-card">
+      <span class="recipe-tag">Dinner</span>
+      <h3>🥔 Potato & Bean Bowl</h3>
+      <p><b>Ingredients:</b> Potatoes, beans, onions and seasonal vegetables.</p>
+      <p><b>Method:</b> Cook the potatoes and beans, add vegetables and season with simple herbs or spices.</p>
+    </div>
+
+    <div class="recipe-card">
+      <span class="recipe-tag">Dinner</span>
+      <h3>🍝 Vegetable Pasta</h3>
+      <p><b>Ingredients:</b> Pasta, seasonal vegetables, beans or lentils and simple spices.</p>
+      <p><b>Method:</b> Cook the pasta, sauté or cook the vegetables, then combine with beans or lentils and season.</p>
+    </div>
+  </div>
+
+  <br>
+  <button type="button" class="cta" data-section="guides">← Back to Guides</button>
+</section>
+
+
+<section id="habits">
+  <h2>Healthy Habits Workbook</h2>
+  <div class="guides-intro">
+    <strong>Build healthy habits one step at a time.</strong>
+    <p style="margin-bottom:0">Use this simple checklist to focus on practical habits you can repeat every day.</p>
+  </div>
+
+  <div class="habit-progress" id="habitProgress">0 of 7 habits completed</div>
+
+  <div class="habit-list">
+    <div class="habit-card">
+      <label><input class="habit-check" type="checkbox"> Drink water regularly throughout the day.</label>
+    </div>
+    <div class="habit-card">
+      <label><input class="habit-check" type="checkbox"> Include a fruit or vegetable with meals.</label>
+    </div>
+    <div class="habit-card">
+      <label><input class="habit-check" type="checkbox"> Choose affordable whole or minimally processed foods when possible.</label>
+    </div>
+    <div class="habit-card">
+      <label><input class="habit-check" type="checkbox"> Plan your meals before shopping.</label>
+    </div>
+    <div class="habit-card">
+      <label><input class="habit-check" type="checkbox"> Reduce avoidable food waste by using leftovers.</label>
+    </div>
+    <div class="habit-card">
+      <label><input class="habit-check" type="checkbox"> Make time for regular physical activity that suits you.</label>
+    </div>
+    <div class="habit-card">
+      <label><input class="habit-check" type="checkbox"> Aim for consistent, restful sleep.</label>
+    </div>
+  </div>
+
+  <br>
+  <button type="button" class="cta" data-section="guides">← Back to Guides</button>
+</section>
+
+
+<section id="nutrition">
+  <h2>Nutrition Basics</h2>
+  <div class="guides-intro">
+    <strong>Understand the basics of balanced eating.</strong>
+    <p style="margin-bottom:0">A simple guide to the main nutrients and everyday choices that can support a healthy eating pattern.</p>
+  </div>
+
+  <div class="nutrition-grid">
+    <div class="nutrition-card">
+      <h3>🍗 Protein</h3>
+      <p>Protein helps support muscles and other body tissues. Affordable sources include beans, lentils, eggs, yoghurt, chickpeas and other locally available foods.</p>
+    </div>
+
+    <div class="nutrition-card">
+      <h3>🌾 Carbohydrates</h3>
+      <p>Carbohydrate foods provide energy. Examples include oats, rice, potatoes, bread, pasta and other grains or staple foods.</p>
+    </div>
+
+    <div class="nutrition-card">
+      <h3>🥑 Healthy Fats</h3>
+      <p>Fats are an important part of a balanced diet. Foods such as nuts, seeds, avocado and some cooking oils can provide dietary fat.</p>
+    </div>
+
+    <div class="nutrition-card">
+      <h3>🥦 Vitamins & Minerals</h3>
+      <p>Fruits and vegetables provide many vitamins, minerals and other beneficial nutrients. Choose a variety of colourful, seasonal produce when possible.</p>
+    </div>
+
+    <div class="nutrition-card">
+      <h3>🌱 Fiber</h3>
+      <p>Fiber is found in foods such as beans, lentils, whole grains, fruits and vegetables. Include a variety of these foods in your meals.</p>
+    </div>
+
+    <div class="nutrition-card">
+      <h3>💧 Water</h3>
+      <p>Water is essential for the body. Drink regularly throughout the day and make water a simple everyday beverage choice.</p>
+    </div>
+
+    <div class="nutrition-card">
+      <h3>🍽️ Build a Balanced Plate</h3>
+      <p>A practical approach is to combine a staple or grain with a protein-rich food and plenty of vegetables, then add fruit or another nutritious food as appropriate.</p>
+    </div>
+  </div>
+
+  <br>
+  <button type="button" class="cta" data-section="guides">← Back to Guides</button>
+</section>
+
+</main>
+
+<footer><strong>Nourish & Thrive</strong><br>Healthy choices, smarter spending.<br><small>Simple • Affordable • Practical</small><br><small>Version 1.0</small></footer>
+
+<script>
+(function(){
+  function showSection(id){
+    const target=document.getElementById(id);
+    if(!target)return;
+    document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+    target.classList.add("active");
+    document.querySelectorAll("nav button[data-section]").forEach(b=>{
+      b.classList.toggle("active",b.dataset.section===id);
+    });
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  document.addEventListener("click",function(e){
+    const el=e.target.closest("[data-section]");
+    if(el){
+      e.preventDefault();
+      showSection(el.dataset.section);
+      return;
+    }
+    const product=e.target.closest("[data-product]");
+    if(product){
+      e.preventDefault();
+      if(product.dataset.product==="7-Day Healthy Meal Plan"){
+        showSection("meal7");
+      }else if(product.dataset.product==="Budget Grocery Planner"){
+        showSection("grocery");
+      }else if(product.dataset.product==="Grocery Budget Calculator"){
+        showSection("budget");
+      }else if(product.dataset.product==="Healthy Recipes Guide"){
+        showSection("recipes");
+      }else if(product.dataset.product==="Healthy Habits Workbook"){
+        showSection("habits");
+      }else if(product.dataset.product==="Nutrition Basics Guide"){
+        showSection("nutrition");
+      }else{
+        alert(product.dataset.product + "\n\nProduct link will be added here.");
+      }
+    }
+  });
+
+
+
+  const habitChecks=document.querySelectorAll(".habit-check");
+  const habitProgress=document.getElementById("habitProgress");
+  function updateHabitProgress(){
+    if(!habitProgress)return;
+    const completed=document.querySelectorAll(".habit-check:checked").length;
+    habitProgress.textContent=completed+" of 7 habits completed";
+  }
+  habitChecks.forEach(function(check){
+    check.addEventListener("change",updateHabitProgress);
+  });
+  updateHabitProgress();
+
+  const calculateBudget=document.getElementById("calculateBudget");
+  if(calculateBudget){
+    calculateBudget.addEventListener("click",function(){
+      const amount=parseFloat(document.getElementById("budgetAmount").value);
+      const people=parseInt(document.getElementById("peopleCount").value,10);
+      const result=document.getElementById("budgetResult");
+
+      if(!Number.isFinite(amount) || amount<=0 || !Number.isInteger(people) || people<1){
+        result.textContent="Please enter a valid monthly budget and at least 1 person.";
+        return;
+      }
+
+      const weekly=amount/4.345;
+      const daily=amount/30;
+      const perPersonMonthly=amount/people;
+      const perPersonWeekly=weekly/people;
+
+      result.innerHTML=
+        "Estimated weekly household budget: "+weekly.toFixed(2)+"<br>"+
+        "Estimated daily household budget: "+daily.toFixed(2)+"<br>"+
+        "Estimated monthly budget per person: "+perPersonMonthly.toFixed(2)+"<br>"+
+        "Estimated weekly budget per person: "+perPersonWeekly.toFixed(2);
+    });
+  }
+
+  showSection("home");
+})();
+</script>
+</body>
+</html>
