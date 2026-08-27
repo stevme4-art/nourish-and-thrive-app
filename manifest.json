@@ -1,9 +1,21 @@
 {
-  "name": "Nourish &amp; Thrive",
-  "short_name": "Nourish &amp; Thrive",
+  "name": "Nourish & Thrive",
+  "short_name": "Nourish & Thrive",
   "description": "Healthy eating made simple, affordable and practical.",
   "start_url": "/nourish-and-thrive-app/",
   "display": "standalone",
   "background_color": "#f4faf7",
-  "theme_color": "#1f7a4d"
+  "theme_color": "#1f7a4d",
+  "icons": [
+    {
+      "src": "/nourish-and-thrive-app/launchericon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/nourish-and-thrive-app/launchericon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
